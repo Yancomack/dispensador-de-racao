@@ -4,8 +4,8 @@ Projeto desenvolvido para a disciplina de Objetos Inteligentes Conectados; O pro
 <img width="300" height="400" alt="image" src="https://github.com/user-attachments/assets/4a468086-3a4b-4a72-9c2d-e990c85bed79" />
 
 ## Alunos ##
-- João Pedro Lopes Mendes 10400793
-- Yan Correa Santos 10426549
+- João Pedro Lopes Mendes RA: 10400793
+- Yan Correa Santos RA: 10426549
 
 ## Funcionalidades
 
