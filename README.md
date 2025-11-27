@@ -1,7 +1,11 @@
 # Dispensador de ração automático para animais doméstiscos
 Projeto desenvolvido para a disciplina de Objetos Inteligentes Conectados; O projeto consiste em um dispensador de ração automático em horários fixos com monitoramento remoto via IoT.
 
-<img width="300" height="400" alt="image" src="https://github.com/user-attachments/assets/4a468086-3a4b-4a72-9c2d-e990c85bed79" />
+<img width="300" height="400" alt="image" src="https://github.com/user-attachments/assets/4a468086-3a4b-4a72-9c2d-e990c85bed79" /> <img width="300" height="400" alt="image" src="https://github.com/user-attachments/assets/a7f7d18f-dd10-4841-8417-b4f62bc9a0ec" />
+<img width="300" height="400" alt="image" src="https://github.com/user-attachments/assets/d8ffd4b7-f4e0-476b-9f37-70f9d1a1e862" /> <img width="300" height="400" alt="image" src="https://github.com/user-attachments/assets/98463340-ea47-44e2-b78d-508ba6480daf" /> <img width="300" height="400" alt="image" src="https://github.com/user-attachments/assets/ca68577d-bfeb-4a31-add9-f26faf1cf80c" />
+
+
+
 
 ## Alunos ##
 - João Pedro Lopes Mendes RA: 10400793
@@ -30,7 +34,10 @@ Projeto desenvolvido para a disciplina de Objetos Inteligentes Conectados; O pro
 ## Notificação WhatsApp
 <img width="721" height="361" alt="image" src="https://github.com/user-attachments/assets/3eb6c649-4ac4-48ea-9266-da1b20c1fc4d" />
 
-## Dashboards Grafana
-<img width="811" height="394" alt="image" src="https://github.com/user-attachments/assets/d148efc6-83bd-42fe-8637-357f8a8d0ecc" />
+## InfluxDB
+<img width="1225" height="418" alt="image" src="https://github.com/user-attachments/assets/8c58379b-26ec-4df9-baf3-d67c5835b244" />
+
+## Dashboard com gráficos no Grafana
+<img width="1261" height="353" alt="image" src="https://github.com/user-attachments/assets/d6e357b9-1e17-46e7-804b-56d9db9291c9" />
 
 
