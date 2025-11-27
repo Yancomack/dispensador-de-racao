@@ -31,5 +31,6 @@ Projeto desenvolvido para a disciplina de Objetos Inteligentes Conectados; O pro
 <img width="721" height="361" alt="image" src="https://github.com/user-attachments/assets/3eb6c649-4ac4-48ea-9266-da1b20c1fc4d" />
 
 ## Dashboards Grafana
+<img width="811" height="394" alt="image" src="https://github.com/user-attachments/assets/d148efc6-83bd-42fe-8637-357f8a8d0ecc" />
 
 
