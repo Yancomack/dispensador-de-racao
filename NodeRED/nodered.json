@@ -67,7 +67,7 @@
         "type": "function",
         "z": "3b6d1f5f57f54aaa",
         "name": "Formatação mensagem",
-        "func": "let payload = msg.payload;\n\n// Adaptando os nomes do JSON do ESP32\nlet message = `Peso antes: ${payload[\"Peso inicial\"]}g\nPeso após 1ª refeição: ${payload[\"Peso após primeira refeição\"]}g\nPeso após 2ª refeição: ${payload[\"Peso após segunda refeição\"]}g\n1ª refeição liberada? ${payload[\"Peso após primeira refeição\"] < payload[\"Peso inicial\"] ? \"Sim\" : \"Não\"}\n2ª refeição liberada? ${payload[\"Peso após segunda refeição\"] < payload[\"Peso após primeira refeição\"] ? \"Sim\" : \"Não\"}`;\n\n// --- Output 2: payload para InfluxDB ---\nlet influxPayload = [\n    {\n        measurement: \"Dispensador\",\n        tags: { device: \"ESP32_Dispenser\" },\n        fields: {\n            weight_1: payload[\"Peso inicial\"],\n            weight_2: payload[\"Peso após primeira refeição\"],\n            weight_3: payload[\"Peso após segunda refeição\"],\n            feed1_done: payload[\"Peso após primeira refeição\"] < payload[\"Peso inicial\"] ? 1 : 0,\n            feed2_done: payload[\"Peso após segunda refeição\"] < payload[\"Peso após primeira refeição\"] ? 1 : 0\n        }\n    }\n];\n\nreturn [\n    { payload: message },\n    { payload: influxPayload }\n];\n",
+        "func": "let p = msg.payload;\n\n// whatsapp\nlet message = \n`Peso inicial: ${p[\"Peso inicial\"]}g\nPeso após primeira refeição: ${p[\"Peso após primeira refeição\"]}g\nPeso após segunda refeição: ${p[\"Peso após segunda refeição\"]}g\nRação foi despejada no primeiro horário? ${p[\"Peso após primeira refeição\"] < p[\"Peso inicial\"] ? \"Sim\" : \"Não\"}\nRação foi despejada no segundo horário? ${p[\"Peso após segunda refeição\"] < p[\"Peso após primeira refeição\"] ? \"Sim\" : \"Não\"}`;\n\n//influxdb\nlet influxPayload = [\n    {\n        measurement: \"Dispensador\",\n        tags: { device: \"ESP32_Dispenser\" },\n        fields: {\n            p1: p[\"Peso inicial\"],\n            p2: p[\"Peso após primeira refeição\"],\n            p3: p[\"Peso após segunda refeição\"],\n            f1: p[\"Peso após primeira refeição\"] < p[\"Peso inicial\"] ? 1 : 0,\n            f2: p[\"Peso após segunda refeição\"] < p[\"Peso após primeira refeição\"] ? 1 : 0\n        }\n    }\n];\n\nreturn [\n    { payload: message },\n    { payload: influxPayload }\n];\n",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -155,7 +155,7 @@
         "name": "WhatsApp API Account"
     },
     {
-        "id": "ac85f089566ed406",
+        "id": "67fb38985d3657bb",
         "type": "global-config",
         "env": [],
         "modules": {
