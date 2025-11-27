@@ -1,0 +1,166 @@
+[
+    {
+        "id": "3b6d1f5f57f54aaa",
+        "type": "tab",
+        "label": "Flow 5",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "61d162f2de4fe15e",
+        "type": "mqtt in",
+        "z": "3b6d1f5f57f54aaa",
+        "name": "broker.hivemq.com",
+        "topic": "MACK10400793/#",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "55f2d94fe0713d49",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "0849607c60f8cd1b"
+            ]
+        ]
+    },
+    {
+        "id": "c6fddcba47c2b004",
+        "type": "influxdb out",
+        "z": "3b6d1f5f57f54aaa",
+        "influxdb": "350f114faff645ff",
+        "name": "",
+        "measurement": "Dispensador",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "Mackenzie",
+        "bucket": "racaodispensador",
+        "x": 970,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "0849607c60f8cd1b",
+        "type": "json",
+        "z": "3b6d1f5f57f54aaa",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 370,
+        "y": 200,
+        "wires": [
+            [
+                "cb294d89ef74ebf9"
+            ]
+        ]
+    },
+    {
+        "id": "cb294d89ef74ebf9",
+        "type": "function",
+        "z": "3b6d1f5f57f54aaa",
+        "name": "Formatação mensagem",
+        "func": "let payload = msg.payload;\n\n// Adaptando os nomes do JSON do ESP32\nlet message = `Peso antes: ${payload[\"Peso inicial\"]}g\nPeso após 1ª refeição: ${payload[\"Peso após primeira refeição\"]}g\nPeso após 2ª refeição: ${payload[\"Peso após segunda refeição\"]}g\n1ª refeição liberada? ${payload[\"Peso após primeira refeição\"] < payload[\"Peso inicial\"] ? \"Sim\" : \"Não\"}\n2ª refeição liberada? ${payload[\"Peso após segunda refeição\"] < payload[\"Peso após primeira refeição\"] ? \"Sim\" : \"Não\"}`;\n\n// --- Output 2: payload para InfluxDB ---\nlet influxPayload = [\n    {\n        measurement: \"Dispensador\",\n        tags: { device: \"ESP32_Dispenser\" },\n        fields: {\n            weight_1: payload[\"Peso inicial\"],\n            weight_2: payload[\"Peso após primeira refeição\"],\n            weight_3: payload[\"Peso após segunda refeição\"],\n            feed1_done: payload[\"Peso após primeira refeição\"] < payload[\"Peso inicial\"] ? 1 : 0,\n            feed2_done: payload[\"Peso após segunda refeição\"] < payload[\"Peso após primeira refeição\"] ? 1 : 0\n        }\n    }\n];\n\nreturn [\n    { payload: message },\n    { payload: influxPayload }\n];\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 200,
+        "wires": [
+            [
+                "c6fddcba47c2b004",
+                "9a7a97e310964b74"
+            ]
+        ]
+    },
+    {
+        "id": "9a7a97e310964b74",
+        "type": "node-red-contrib-whatsapp-cmb-send-message",
+        "z": "3b6d1f5f57f54aaa",
+        "name": "",
+        "credtype": "account",
+        "account": "44bddb39a0a93c5d",
+        "text": "payload",
+        "phonenumbervalue": "",
+        "apikeyvalue": "",
+        "apikeyinputtypemessage": "msg",
+        "phonenumberinputtypemessage": "msg",
+        "inputtypemessage": "msg",
+        "rejectssl": false,
+        "x": 920,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "55f2d94fe0713d49",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "350f114faff645ff",
+        "type": "influxdb",
+        "hostname": "127.0.0.1",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database",
+        "name": "InfluxDB Account",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "https://us-east-1-1.aws.cloud2.influxdata.com",
+        "timeout": 10,
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "44bddb39a0a93c5d",
+        "type": "node-red-contrib-whatsapp-cmb-account",
+        "name": "WhatsApp API Account"
+    },
+    {
+        "id": "ac85f089566ed406",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-influxdb": "0.7.0",
+            "node-red-contrib-whatsapp-cmb": "1.0.3"
+        }
+    }
+]
